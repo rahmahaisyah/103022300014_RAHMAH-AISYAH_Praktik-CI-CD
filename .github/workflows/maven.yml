@@ -7,15 +7,20 @@ on:
   push:
     branches: [ main ]
   pull_request:
+    types: [created]
     branches: [ main ]
+  release:
+    types: [created]
 
-permissions:
-  contents: write 
-  packages: write 
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write 
+      packages: write 
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
@@ -55,6 +60,11 @@ jobs:
       with:
         name: RAHMAH-AISYAH_Praktik-CI-CD
         path: target/*.jar
+        
+    - name: Publish to GitHub Packages Apache Maven
+      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
