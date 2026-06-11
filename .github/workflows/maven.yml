@@ -28,6 +28,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+      server-id: github
+      server-username: ${{ github.actor }}
+      server-password: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Continuous Integration (Compile)
       run: mvn -B clean compile
