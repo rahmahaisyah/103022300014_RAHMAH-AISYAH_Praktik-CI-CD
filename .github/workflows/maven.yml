@@ -29,3 +29,6 @@ jobs:
     
     - name: Continuous Integration (Compile)
       run: mvn -B clean compile
+
+    - name: Continuous Testing (Unit Test)
+      run: mvn -B test
